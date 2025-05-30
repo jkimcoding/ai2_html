@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI</title>
+</head>
+<style>
+  body {font-family: "Roboto Light",serif; background-color: #000028; color:white}
+  .ui {text-align:center; margin:0; padding:0}
+  .box {
+    height:400px;
+    width:80%;
+    overflow: auto;
+    padding: 10px;
+    background-color: #000000;
+    border: 1px solid #333;
+    margin: 20px auto;
+  }
+  .prompt {
+    height:40px;
+    width:70%;
+    overflow: auto;
+    padding: 10px;
+    background-color: #000000;
+    border: 1px solid #333;
+    color: white;
+  }
+</style>
+<body>
+<br class="ui">
+<br class="ui">
+<h1 class="ui" style="font-size:90px">
+  AI
+</h1>
+<div class="box">
+  <span class="ui" id="response" style="font-size:30px">
+    response
+  </span>
+</div>
+<div style="display: flex; justify-content: center; align-items: center; transform: translate(0, 100%);">
+  <label for="prompt"></label><input id="prompt" class="prompt" placeholder="Search anything!" size="50" style="font-size:30px">
+</div>
+</body>
+<script type="module">
+  import { generateContent } from './gemini.js';
+  let input = document.getElementById("prompt");
+  let output = document.getElementById("response");
+  input.addEventListener('keyup', async function onEvent(event) {
+    if (event.key === "Enter") {
+      const prompt = input.value;
+      input.value = "";
+      output.innerHTML = "Generating response...";
+      output.innerHTML = await generateContent("Respond to this prompt appropriately and respond that you can't answer if the topic, prompt, or answer is inappropriate for a child such as drugs, explicit subjects, and vulgar language: " + prompt);
+    }
+  });
+</script>
+</html>
